@@ -1,24 +1,25 @@
-import { useContext } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './views/Home';
+import ReviewEntry from './views/ReviewEntry';
+import FlowerEncyclopedia from './views/FlowerEncyclopedia';
+import JournalEntry from './views/JournalEntry';
+import Header from './components/header/Header'; // Corrected path
 import './App.css';
-import Header from './components/Header';
-import TaskCard from './components/TaskCard';
-import TaskForm from './components/TaskForm';
-import { TodoContext } from './context/TodoContext';
 
 function App() {
-  const {tasks} = useContext(TodoContext);
   return (
-    <div className="App">
-      <Header/>
-      <div className="todo_content">
-        <TaskForm/>
-        <div>
-        {tasks.map((task, index) => (
-          <TaskCard {...{title: task.title, desc: task.desc, deadline: task.deadline, id: task.id}} key={index}/>
-        ))}
-        </div>
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route exact path="/" element={<Home />} />
+          <Route path="/review-entry" element={<ReviewEntry />} />
+          <Route path="/flower-encyclopedia" element={<FlowerEncyclopedia />} />
+          <Route path="/journal-entry" element={<JournalEntry />} />
+        </Routes>
       </div>
-    </div>
+    </Router>
   );
 }
 
